@@ -36,7 +36,7 @@ def _populate_words():
 adjective_order = ['adjective.quantity',
                    #'adjective.quality',
                    'adjective.sound',
-                   #'adjective.age',
+                   'adjective.time',
                    'adjective.shape',
                    'adjective.color',
                     #Proper adjective (often nationality, other place of origin, or material)

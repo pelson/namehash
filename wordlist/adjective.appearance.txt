@@ -1,5 +1,6 @@
 adorable
 beautiful
+chic
 clean
 drab
 elegant
@@ -8,10 +9,10 @@ glamorous
 handsome
 long
 magnificent
-old-fashioned
+oldfashioned
 plain
 quaint
 sparkling
 ugliest
 unsightly
-wide-eyed
+wideeyed

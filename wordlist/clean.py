@@ -21,4 +21,4 @@ for word, classes in seen.items():
 
 for word, classes in seen.items():
     if '-' in word:
-        print(word)
+        print(word, seen[word])
