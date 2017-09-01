@@ -1,0 +1,24 @@
+# Namehash
+
+Generate a name that follows standard English grammar:
+
+```
+>>> namehash.generate(n_words=3)
+big-red-tractor
+```
+
+
+As the name suggests, the project exists to provide a **reversible** hash function. The hash for a given integer can be computed with:
+
+```
+>>> namehash.encode(123, n_words=2)
+juicy-apple
+
+```
+
+This can be reversed with:
+
+```
+>>> namehash.decode('juicy-apple')
+123
+```
