@@ -2,6 +2,8 @@ import itertools
 from pathlib import Path
 import random
 
+from collections import OrderedDict
+
 
 wordlist_dir = Path(__file__).parent / 'wordlist'
 
@@ -104,7 +106,6 @@ def decode(namehash):
     words = namehash.split('-')
     structure = _identify_structure(words)
 
-    from collections import OrderedDict
     diagnostics = OrderedDict()
 
     positions = [wordlists[wordclasses[word]].index(word)
@@ -125,6 +126,7 @@ def decode(namehash):
         number += posn * factor
         factor *= length
     return number
+
 
 def roundtrip(n):
     print('Decoding:', n)
