@@ -20,6 +20,7 @@ def _populate_words():
     for fname in wordlist_dir.glob('*.txt'):
         with fname.open('r') as fh:
             words = fh.read().split('\n')
+            words = [word for word in words if word]
 
             # TODO: Put this into the wordlists themselves.
             random.seed(4)
@@ -31,13 +32,13 @@ def _populate_words():
                 # There may be some duplicates between nouns and adjectives.
                 wordclasses.setdefault(word, classification)
 
-
-# Unused: appearance, condition, time, touch
 adjective_order = ['adjective.quantity',
-                   #'adjective.quality',
+                   'adjective.condition',
+                   'adjective.appearance',
                    'adjective.sound',
                    'adjective.time',
                    'adjective.shape',
+                   'adjective.touch',
                    'adjective.color',
                     #Proper adjective (often nationality, other place of origin, or material)
                     #Purpose or qualifier,
@@ -101,7 +102,6 @@ def decode(namehash):
 
     words = namehash.split('-')
     structure = _identify_structure(words)
-    print(structure)
 
     from collections import OrderedDict
     diagnostics = OrderedDict()
@@ -128,13 +128,12 @@ def decode(namehash):
 if __name__ == '__main__':
     _populate_words()
 
-    print(encode(10143))
-    print(decode('sparse-orange-flax'))
-
+    print(encode(9516072))
+    print(decode('thundering-victorious-uncle'))
     for i in range(120, 1880802 * 50, 10023):
         namehash = encode(i, 3)
-        print(i)
-        print(i, namehash, decode(namehash))
+        print(i, end=' ')
+        print(namehash, decode(namehash))
 
     print(encode(1880802))
 
