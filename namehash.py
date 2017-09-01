@@ -17,7 +17,7 @@ def _populate_words():
     if wordlists:
         return
 
-    for fname in wordlist_dir.glob('*.txt'):
+    for fname in sorted(wordlist_dir.glob('*.txt')):
         with fname.open('r') as fh:
             words = fh.read().split('\n')
             words = [word for word in words if word]
@@ -28,9 +28,10 @@ def _populate_words():
 
             classification = str(fname.name[:-4])
             wordlists[classification] = words
-            for word in words:
-                # There may be some duplicates between nouns and adjectives.
-                wordclasses.setdefault(word, classification)
+            if classification != 'noun':
+                for word in words:
+                    # There may be some duplicates between nouns and adjectives.
+                    wordclasses.setdefault(word, classification)
 
 adjective_order = ['adjective.quantity',
                    'adjective.condition',
@@ -93,7 +94,7 @@ def encode(number, n_words=3):
 
 def _identify_structure(words):
     # There are some words in the nouns and the adjectives list (e.g. orange)
-    structure = [wordclasses[word] for word in words]
+    structure = [wordclasses[word] for word in words[:-1]] + ['noun']
     return structure
 
 
@@ -107,11 +108,12 @@ def decode(namehash):
     diagnostics = OrderedDict()
 
     positions = [wordlists[wordclasses[word]].index(word)
-                 for word in words]
+                 for word in words[:-1]]
+    noun_posn = diagnostics['noun-index-x'] = wordlists['noun'].index(words[-1])
+    positions.append(noun_posn)
 
     list_lengths = [len(wordlists[cat]) for cat in structure]
 
-    noun_posn = diagnostics['noun-index'] = wordlists['noun'].index(words[-1])
 
     list_lengths.insert(-1, len(combinations[len(words) - 1]))
     struct_posn = diagnostics['structure-index'] = combinations[len(words) - 1].index(tuple(structure[:-1]))
@@ -124,6 +126,13 @@ def decode(namehash):
         factor *= length
     return number
 
+def roundtrip(n):
+    print('Decoding:', n)
+    name = encode(n)
+    print('Encoding:', name)
+    dec = decode(name)
+    print("Got:", dec)
+    assert dec == n
 
 if __name__ == '__main__':
     _populate_words()
