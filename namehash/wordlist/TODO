@@ -1,0 +1,12 @@
+Merge a list of:
+  * All animal names (e.g. https://en.wikipedia.org/wiki/List_of_animal_names)
+  * All plant names
+  * All furniture items
+  * All foodstuffs
+  * All vegetables
+  * All fruits
+  * All spatial features (e.g. glacier)
+  * All wine-type adjectives (e.g. fruity)
+  * All professions
+
+Remove very similar words?

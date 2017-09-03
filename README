@@ -22,3 +22,58 @@ This can be reversed with:
 >>> namehash.decode('juicy-apple')
 123
 ```
+
+
+# Versioning
+
+Once version 1.0 is released, all encodings are guaranteed to be backwards compatible.
+We may choose to deprecate words, but old combinations will always remain decodable.
+If there is a particularly offensive combination we may choose to blacklist
+it in favour of another generated namehash.
+As we will want to continually grow the wordlist, the upper limit of the hash
+algorithm is not guaranteed.
+
+
+# Algorithm
+
+The encoding algorithm uses a wordlist that has separated a variety of adjectives and nouns. For example, ``shape adjectives``, ``color adjectives`` and ``nouns``.
+For an integer N, we first choose an noun in the position ``N mod n_nouns``. Next, we compute the sentence structure by indexing our combinations
+at ``(N // n_nouns) mod n_structure``. We continue as above for the structure identified by considering words from left-to-right in the sentence structure.
+
+
+A worked example with a fictional wordlist:
+
+    wordlist = {'nouns': ['apple', 'koala'],
+                'adjective.shape': ['high', 'wide'],
+                'adjective.color': ['red', 'blue'],
+                'adjective.time': ['old']}
+    structures = [('adjective.shape', 'adjective.color', 'noun'),
+                  ('adjective.color', 'adjective.time', 'noun'),]
+
+In summary:
+
+    N_nouns = 2
+    N_shapes = 2
+    N_colors = 2
+    N_time = 1
+    N_structures = 2
+
+The limit of the encoding in this example would therefore ``N_nouns * (N_shapes * N_colors + N_colors * N_time) = 12``.
+Supposing we wanted to encode ``N = 7`` we would:
+
+    noun = nouns[N mod N_nouns] = 'koala'
+    residual = N // N_nouns = 3
+
+    structure = structures[residual mod N_structures] = ('adjective.color', 'adjective.time', 'noun')
+    residual = residual // N_structures = 1
+
+    adj_time = adjectives_time[residual % N_time] = 'old'
+    residual = residual // N_time = 1
+
+    adj_color = adjectives_color[residual % N_color] = 'blue'
+    residual = residual // N_color = 0
+
+If the residual is non-zero at the end, we have overflown.
+
+
+Sentence structure is always of the form ``{adjective}* {noun}{1}``. For example, a valid structure may be ``{adjective.shape} {adjective.color} {noun}``.

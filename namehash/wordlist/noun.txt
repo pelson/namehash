@@ -1484,6 +1484,7 @@ failure
 fairies
 fairy
 faith
+falcon
 fall
 fame
 familiar
@@ -1519,6 +1520,7 @@ fen
 fence
 fencing
 fender
+ferret
 ferry
 ferryboat
 fertilizer
@@ -1560,11 +1562,12 @@ fishery
 fishing
 fishmonger
 fishnet
-fisting
+fist
 fix
 fixture
 flag
 flame
+flamingo
 flanker
 flare
 flash
@@ -2013,6 +2016,7 @@ idea
 ideal
 if
 igloo
+iguana
 ikebana
 illegal
 image
@@ -3058,6 +3062,7 @@ possible
 post
 postage
 postbox
+postcard
 poster
 pot
 potato
