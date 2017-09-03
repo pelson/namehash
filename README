@@ -26,8 +26,12 @@ This can be reversed with:
 
 # Versioning
 
-Once version 1.0 is released, all codes are guaranteed to be backwards compatible. We may choose to deprecate words, but old combinations will allways remain decodable.
-If there is a particularly offensive combination we may choose to blacklist it in favour of another generated namehash.
+Once version 1.0 is released, all encodings are guaranteed to be backwards compatible.
+We may choose to deprecate words, but old combinations will always remain decodable.
+If there is a particularly offensive combination we may choose to blacklist
+it in favour of another generated namehash.
+As we will want to continually grow the wordlist, the upper limit of the hash
+algorithm is not guaranteed.
 
 
 # Algorithm
@@ -45,7 +49,7 @@ A worked example with a fictional wordlist:
                 'adjective.time': ['old']}
     structures = [('adjective.shape', 'adjective.color', 'noun'),
                   ('adjective.color', 'adjective.time', 'noun'),]
-    
+
 In summary:
 
     N_nouns = 2
@@ -56,7 +60,7 @@ In summary:
 
 The limit of the encoding in this example would therefore ``N_nouns * (N_shapes * N_colors + N_colors * N_time) = 12``.
 Supposing we wanted to encode ``N = 7`` we would:
-    
+
     noun = nouns[N mod N_nouns] = 'koala'
     residual = N // N_nouns = 3
 
@@ -73,5 +77,3 @@ If the residual is non-zero at the end, we have overflown.
 
 
 Sentence structure is always of the form ``{adjective}* {noun}{1}``. For example, a valid structure may be ``{adjective.shape} {adjective.color} {noun}``.
-
-

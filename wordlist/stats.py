@@ -30,3 +30,25 @@ def n_combinations(n_words=3):
 
 print('Combinations: 2: {}; 3: {}; 4: {};'.format(
     n_combinations(2), n_combinations(3), n_combinations(4)))
+
+
+if False:
+    i = 25100950
+    fail_count = 0
+    while True:
+        hash = namehash.encode(i, n_words=3)
+        inverse = namehash.decode(hash)
+        if i != inverse:
+            print('Failed on i={}. Hash: {}; decoded: {}'.format(i, hash, inverse))
+            fail_count += 1
+
+        if fail_count > 3:
+            break
+
+
+        if i % 1000 == 0:
+            print(i, end=', ')
+        if i % 100000 == 0:
+            print()
+
+        i += 1

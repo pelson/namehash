@@ -14,11 +14,11 @@ for wordclass, words in namehash.wordlists.items():
     for word in words:
         seen.setdefault(word, []).append(wordclass)
 
-for word, classes in seen.items():
+for word, classes in sorted(seen.items()):
     if len(classes) > 1:
         print(len(classes), word, sorted(classes))
 
 
-for word, classes in seen.items():
+for word, classes in sorted(seen.items()):
     if '-' in word:
         print(word, seen[word])

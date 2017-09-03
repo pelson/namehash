@@ -9,6 +9,7 @@ happy
 jolly
 kind
 lively
+mellow
 nice
 obedient
 proud
