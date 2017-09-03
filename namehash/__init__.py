@@ -131,7 +131,7 @@ def encode(number, n_words=3):
         factor *= dim
 
     if rem != 0:
-        raise ValueError('Overflow.')
+        raise OverflowError('Overflow.')
 
     namehash = '-'.join(reversed(words))
     log.debug('Encode {}: "{}".\n  Diagnostics: {}'.format(number, namehash, diagnostics))
