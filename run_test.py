@@ -1,4 +1,4 @@
-from .namehash import *
+from namehash import *
 
 def roundtrip(n, n_words=3):
     hash = encode(n, n_words)

@@ -4,13 +4,13 @@
 
 # Compute total number of unique.
 
-from .. import namehash
+from .. import wordlists, _populate_words
 
-namehash._populate_words()
+_populate_words()
 
 seen = {}
 
-for wordclass, words in namehash.wordlists.items():
+for wordclass, words in wordlists.items():
     for word in words:
         seen.setdefault(word, []).append(wordclass)
 

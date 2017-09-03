@@ -4,22 +4,21 @@
 
 # Compute total number of unique.
 
-from .. import namehash
+from .. import encode, decode, combinations, _populate_words, wordlists
 
-namehash._populate_words()
-
+_populate_words()
 
 
 def n_combinations(n_words=3):
-    combinations = namehash.combinations[n_words - 1]
-    nouns = len(namehash.wordlists['noun'])
+    combos = combinations[n_words - 1]
+    nouns = len(wordlists['noun'])
 
     wl_lengths = {wordclass: len(wordlist)
-                  for wordclass, wordlist in namehash.wordlists.items()}
+                  for wordclass, wordlist in wordlists.items()}
 
-    lengths = [nouns, len(combinations)]
+    lengths = [nouns, len(combos)]
     n_all_combs = 0
-    for comb in combinations:
+    for comb in combos:
         p = 1
         for wordclass in comb:
             p *= wl_lengths[wordclass]
@@ -36,8 +35,8 @@ if False:
     i = 25100950
     fail_count = 0
     while True:
-        hash = namehash.encode(i, n_words=3)
-        inverse = namehash.decode(hash)
+        hash = encode(i, n_words=3)
+        inverse = decode(hash)
         if i != inverse:
             print('Failed on i={}. Hash: {}; decoded: {}'.format(i, hash, inverse))
             fail_count += 1
